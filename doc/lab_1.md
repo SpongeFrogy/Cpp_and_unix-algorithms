@@ -186,7 +186,7 @@
     ```bash 
     root@d17c9a0d1224:/# ls
     bin  boot  date.sh  dev  etc  home  lib  lib32  lib64  libx32  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
-    root@d17c9a0d1224:/# bash date.sh
+    root@d17c9a0d1224:/# ./date.sh
 
 
     root@d17c9a0d1224:/# ls
