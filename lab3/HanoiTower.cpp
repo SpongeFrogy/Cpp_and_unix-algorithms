@@ -32,7 +32,7 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
   
 int main()
 {
-    int N = 8;
+    int N = 3;
     std::list<string> l = {};
     // A, B and C are names of rods
     l = towerOfHanoi(N, 'A', 'C', 'B', l);
