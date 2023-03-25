@@ -7,7 +7,7 @@ using namespace std;
 template<typename T>
 void printList(std::list<T> l) {
     for (const auto &item : l) {
-        cout << item << "; ";
+        cout << item << "; " << endl;
     }
     cout << endl;
 }
@@ -32,10 +32,11 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
   
 int main()
 {
-    int N = 3;
+    int N = 8;
     std::list<string> l = {};
     // A, B and C are names of rods
     l = towerOfHanoi(N, 'A', 'C', 'B', l);
     printList(l);
+    l.clear(); //удаляем из памяти
     return 0;
 }
