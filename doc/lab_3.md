@@ -88,7 +88,7 @@ using namespace std;
 template<typename T>
 void printList(std::list<T> l) {
     for (const auto &item : l) {
-        cout << item << "; ";
+        cout << item << "; " << endl;
     }
     cout << endl;
 }
@@ -118,6 +118,7 @@ int main()
     // A, B and C are names of rods
     l = towerOfHanoi(N, 'A', 'C', 'B', l);
     printList(l);
+    l.clear(); //удаляем из памяти
     return 0;
 }
 ```
