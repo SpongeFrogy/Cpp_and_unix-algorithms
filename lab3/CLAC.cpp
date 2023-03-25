@@ -6,7 +6,7 @@
 #include <string.h>
 
 using namespace std;
-
+//https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/
 int main()
 {
     std::string s;
