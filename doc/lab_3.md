@@ -124,7 +124,7 @@ int main()
 ```
 Как работает код для `n=2`:
 
-![Getting Started](hanoi.svg)
+![Getting Started](hanoi.png)
 
 
 Пример вывода для `n=3`:
