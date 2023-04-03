@@ -49,5 +49,6 @@
         "list": "cpp"
     },
     "workbench.activityBar.iconClickBehavior": "toggle",
-    "zenMode.hideActivityBar": false
+    "zenMode.hideActivityBar": false,
+    "cSpell.language": "en,ru"
 }
