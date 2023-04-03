@@ -9,6 +9,7 @@ using namespace std;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 int main()
 {
@@ -44,6 +45,8 @@ int main()
 >>>>>>> main
 =======
 >>>>>>> main
+=======
+>>>>>>> main
 //https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/
 int main(int argc, char* argv[])
 {
@@ -69,6 +72,9 @@ int main(int argc, char* argv[])
         std::cout<<pow(x1, x2);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
 =======
 >>>>>>> main

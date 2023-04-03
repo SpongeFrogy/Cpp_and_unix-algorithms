@@ -10,7 +10,11 @@ void printList(std::list<T> l) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         cout << item << "; ";
+=======
+        cout << item << "; " << endl;
+>>>>>>> main
 =======
         cout << item << "; " << endl;
 >>>>>>> main
@@ -29,6 +33,7 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
     if (n == 0) {
         return list;
@@ -37,6 +42,8 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
     //cout << "Move disk " << n << " from rod " << from_rod
     //     << " to rod " << to_rod << endl;
 =======
+=======
+>>>>>>> main
 =======
 >>>>>>> main
 =======
@@ -52,6 +59,9 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
     cout<<n<<"th"<< from_rod<< to_rod << endl;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
 =======
 >>>>>>> main
@@ -66,6 +76,10 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    cout<<n<<"fo"<< from_rod<< to_rod << endl;
+>>>>>>> main
 =======
     cout<<n<<"fo"<< from_rod<< to_rod << endl;
 >>>>>>> main
@@ -83,7 +97,11 @@ int main()
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     int N = 8;
+=======
+    int N = 2;
+>>>>>>> main
 =======
     int N = 2;
 >>>>>>> main
@@ -100,6 +118,10 @@ int main()
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    l.clear(); //удаляем из памяти
+>>>>>>> main
 =======
     l.clear(); //удаляем из памяти
 >>>>>>> main
