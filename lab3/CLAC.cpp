@@ -7,6 +7,7 @@
 
 using namespace std;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 int main()
 {
@@ -38,6 +39,8 @@ int main()
         double x2 = std::stod(s.substr(pos+5));
         std::cout<<"="<<pow(x1, x2);
 =======
+=======
+>>>>>>> main
 //https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/
 int main(int argc, char* argv[])
 {
@@ -61,6 +64,9 @@ int main(int argc, char* argv[])
         double x1 = std::stod(argv[1]);
         double x2 = std::stod(argv[3]);
         std::cout<<pow(x1, x2);
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
         return 0;
     }

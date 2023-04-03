@@ -8,7 +8,11 @@ template<typename T>
 void printList(std::list<T> l) {
     for (const auto &item : l) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         cout << item << "; ";
+=======
+        cout << item << "; " << endl;
+>>>>>>> main
 =======
         cout << item << "; " << endl;
 >>>>>>> main
@@ -19,6 +23,7 @@ void printList(std::list<T> l) {
 std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
                   char aux_rod,std::list<string> list) //функция возвращает список действий
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
     if (n == 0) {
         return list;
@@ -27,6 +32,8 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
     //cout << "Move disk " << n << " from rod " << from_rod
     //     << " to rod " << to_rod << endl;
 =======
+=======
+>>>>>>> main
 {   cout<< n<< "f"<< from_rod<< to_rod << endl;
     if (n == 0) {
         return list;
@@ -36,6 +43,9 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
     //cout << "Move disk " << n << " from rod " << from_rod
     //     << " to rod " << to_rod << endl;
     cout<<n<<"th"<< from_rod<< to_rod << endl;
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     string s = to_string(n).append(":");
     s+=from_rod;
@@ -44,6 +54,10 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
     list.push_back(s);
     list = towerOfHanoi(n - 1, aux_rod, to_rod, from_rod, list);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    cout<<n<<"fo"<< from_rod<< to_rod << endl;
+>>>>>>> main
 =======
     cout<<n<<"fo"<< from_rod<< to_rod << endl;
 >>>>>>> main
@@ -53,7 +67,11 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
 int main()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     int N = 8;
+=======
+    int N = 2;
+>>>>>>> main
 =======
     int N = 2;
 >>>>>>> main
@@ -62,6 +80,10 @@ int main()
     l = towerOfHanoi(N, 'A', 'C', 'B', l);
     printList(l);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    l.clear(); //удаляем из памяти
+>>>>>>> main
 =======
     l.clear(); //удаляем из памяти
 >>>>>>> main
