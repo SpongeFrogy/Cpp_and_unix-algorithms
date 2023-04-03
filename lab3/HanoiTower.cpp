@@ -9,7 +9,11 @@ void printList(std::list<T> l) {
     for (const auto &item : l) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         cout << item << "; ";
+=======
+        cout << item << "; " << endl;
+>>>>>>> main
 =======
         cout << item << "; " << endl;
 >>>>>>> main
@@ -24,6 +28,7 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
                   char aux_rod,std::list<string> list) //функция возвращает список действий
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
     if (n == 0) {
         return list;
@@ -32,6 +37,8 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
     //cout << "Move disk " << n << " from rod " << from_rod
     //     << " to rod " << to_rod << endl;
 =======
+=======
+>>>>>>> main
 =======
 >>>>>>> main
 {   cout<< n<< "f"<< from_rod<< to_rod << endl;
@@ -44,6 +51,9 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
     //     << " to rod " << to_rod << endl;
     cout<<n<<"th"<< from_rod<< to_rod << endl;
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
 =======
 >>>>>>> main
@@ -55,6 +65,10 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
     list = towerOfHanoi(n - 1, aux_rod, to_rod, from_rod, list);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    cout<<n<<"fo"<< from_rod<< to_rod << endl;
+>>>>>>> main
 =======
     cout<<n<<"fo"<< from_rod<< to_rod << endl;
 >>>>>>> main
@@ -68,7 +82,11 @@ int main()
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     int N = 8;
+=======
+    int N = 2;
+>>>>>>> main
 =======
     int N = 2;
 >>>>>>> main
@@ -81,6 +99,10 @@ int main()
     printList(l);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    l.clear(); //удаляем из памяти
+>>>>>>> main
 =======
     l.clear(); //удаляем из памяти
 >>>>>>> main
