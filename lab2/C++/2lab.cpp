@@ -27,7 +27,7 @@ int main()
     string answer = "y"; //set answer
     while (answer == "y") // while loop, if snaswer != 'n', then breack
     {
-        float x = rand() % 2+100; // randem number from 0 to 1
+        float x = rand() % 2+100; // random number
         // ask for input
         int n; 
         std::cout << "Enter the number of loops:" << endl;
