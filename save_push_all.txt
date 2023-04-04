@@ -1,3 +1,7 @@
+git checkout main 
+git add -A
+git commit -m script_commit
+git push
 git checkout dev
 git merge --commit main 
 git push origin dev
