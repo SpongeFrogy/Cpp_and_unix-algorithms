@@ -11,10 +11,16 @@ void printList(std::list<T> l) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+        cout << item << "; " << endl;
+=======
+>>>>>>> main
+<<<<<<< HEAD
         cout << item << "; ";
 =======
         cout << item << "; " << endl;
 >>>>>>> main
+<<<<<<< HEAD
 =======
         cout << item << "; " << endl;
 >>>>>>> main
@@ -23,6 +29,9 @@ void printList(std::list<T> l) {
 >>>>>>> main
 =======
         cout << item << "; " << endl;
+>>>>>>> main
+=======
+>>>>>>> stg
 >>>>>>> main
     }
     cout << endl;
@@ -34,6 +43,10 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+=======
+>>>>>>> main
+<<<<<<< HEAD
 {
     if (n == 0) {
         return list;
@@ -42,11 +55,15 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
     //cout << "Move disk " << n << " from rod " << from_rod
     //     << " to rod " << to_rod << endl;
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> main
 =======
 >>>>>>> main
 =======
+>>>>>>> main
+=======
+>>>>>>> stg
 >>>>>>> main
 {   cout<< n<< "f"<< from_rod<< to_rod << endl;
     if (n == 0) {
@@ -60,12 +77,18 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> main
 =======
 >>>>>>> main
 =======
 >>>>>>> main
 =======
+>>>>>>> main
+=======
+=======
+>>>>>>> main
+>>>>>>> stg
 >>>>>>> main
     string s = to_string(n).append(":");
     s+=from_rod;
@@ -79,7 +102,13 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
 <<<<<<< HEAD
 =======
     cout<<n<<"fo"<< from_rod<< to_rod << endl;
+=======
 >>>>>>> main
+<<<<<<< HEAD
+=======
+    cout<<n<<"fo"<< from_rod<< to_rod << endl;
+>>>>>>> main
+<<<<<<< HEAD
 =======
     cout<<n<<"fo"<< from_rod<< to_rod << endl;
 >>>>>>> main
@@ -88,6 +117,9 @@ std::list<string> towerOfHanoi(int n, char from_rod, char to_rod,
 >>>>>>> main
 =======
     cout<<n<<"fo"<< from_rod<< to_rod << endl;
+>>>>>>> main
+=======
+>>>>>>> stg
 >>>>>>> main
     return list;
 }
@@ -98,10 +130,16 @@ int main()
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+    int N = 2;
+=======
+>>>>>>> main
+<<<<<<< HEAD
     int N = 8;
 =======
     int N = 2;
 >>>>>>> main
+<<<<<<< HEAD
 =======
     int N = 2;
 >>>>>>> main
@@ -110,6 +148,9 @@ int main()
 >>>>>>> main
 =======
     int N = 2;
+>>>>>>> main
+=======
+>>>>>>> stg
 >>>>>>> main
     std::list<string> l = {};
     // A, B and C are names of rods
@@ -121,7 +162,13 @@ int main()
 <<<<<<< HEAD
 =======
     l.clear(); //удаляем из памяти
+=======
 >>>>>>> main
+<<<<<<< HEAD
+=======
+    l.clear(); //удаляем из памяти
+>>>>>>> main
+<<<<<<< HEAD
 =======
     l.clear(); //удаляем из памяти
 >>>>>>> main
@@ -130,6 +177,9 @@ int main()
 >>>>>>> main
 =======
     l.clear(); //удаляем из памяти
+>>>>>>> main
+=======
+>>>>>>> stg
 >>>>>>> main
     return 0;
 }
