@@ -1,3 +1,4 @@
+cd C:\Users\droid\Projects\6sem_Cpp_and_unix
 git switch main
 git add -A
 git commit -m script_commit
