@@ -11,9 +11,10 @@ git switch stg
 git merge --commit dev
 git add -A
 git commit -m script_commit
-git push 
+git push   
 git switch prd
 git merge --commit stg
 git add -A
 git commit -m script_commit
 git push 
+@pause
