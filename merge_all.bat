@@ -1,13 +1,11 @@
-git push
-git switch dev
-git merge main
-git push
-git switch stg
-git merge main
-git push
-git switch prd
-git merge main
-git push
-git switch main
+git checkout dev
+git merge --commit main 
+git push origin dev
+git checkout stg
+git merge --commit dev 
+git push origin stg
+git checkout prd
+git merge --commit stg 
+git push origin prd
 
 
