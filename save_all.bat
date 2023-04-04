@@ -17,4 +17,6 @@ git merge --commit stg
 git add -A
 git commit -m script_commit
 git push 
+git switch main
+echo The echoed text
 @pause
