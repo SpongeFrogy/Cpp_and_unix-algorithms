@@ -1,4 +1,6 @@
 cd C:\Users\droid\Projects\6sem_Cpp_and_unix
+echo The echoed text
+@pause
 git switch main
 git add -A
 git commit -m script_commit
