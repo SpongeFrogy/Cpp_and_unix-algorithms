@@ -6,7 +6,7 @@ git push
 @pause
 git checkout prd
 @pause
-git merge --commit stg
+git merge --commit dev
 @pause
 git push
 @pause
