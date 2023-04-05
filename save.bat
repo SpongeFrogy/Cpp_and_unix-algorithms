@@ -1,7 +1,7 @@
 @pause
 git switch dev
 @pause
-git merge --commit lab2 main 
+git merge --commit main 
 @pause
 git push
 @pause
