@@ -1,7 +1,10 @@
-@pause
 git switch dev
-@pause
 git merge --commit main 
-@pause
+git push
+git switch stg
+git merge --commit dev 
+git push
+git switch prd
+git merge --commit stg 
 git push
 @pause
