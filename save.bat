@@ -7,4 +7,5 @@ git push
 git switch prd
 git merge --commit stg 
 git push
+git switch main
 @pause
