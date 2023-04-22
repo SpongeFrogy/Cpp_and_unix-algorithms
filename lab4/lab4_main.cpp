@@ -64,12 +64,12 @@ return seconds;
 int main()
 {
 double x = 1;
-int n = 1000;
+int n = 100000;
 
 double sec1 = time1(1, n);
 cout<< sec1 <<"s., N="<<n<<"\t"<<"без задержки"<<endl;
 
-n = 100;
+n = 1000;
 double sec2 = time1_s(1, n);
 cout<< sec2 <<"s., N="<<n<<"\t"<<"с задержкой: 0.01s."<<endl;
 

@@ -32,7 +32,7 @@ return y;
 int main()
 {
 double x = 1;
-int n = 1000;
+int n = 100000;
 clock_t start = clock();
 for(int i; i < n; i++)
 {
@@ -54,7 +54,7 @@ clock_t end = clock(); // time of end in flops
 double seconds = (double)(end - start) / CLOCKS_PER_SEC;
 cout<< seconds<<"s., N="<<n<<"\t"<<"без задержки"<<endl;
 
-n = 100;
+n = 1000;
 start = clock();
 for(int i; i < n; i++)
 {
