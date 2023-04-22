@@ -107,6 +107,60 @@ return 0;
 Вывести длительность выполнения всех 10 000 итераций и 100 000 итераций в сек.
 в разбивке по шагам вычислений 1, 2 и 3
 
+```C++
+int main()
+{
+double x = 1;
+int n = 100000;
+clock_t start = clock();
+for(int i; i < n; i++)
+{
+    double res1;
+    double res2;
+    thread th1([&res1, &x]()
+    {
+        res1 = func1(x);
+    });
+    thread th2([&res2, &x]()
+    {
+        res2 = func2(x);
+    });
+    th1.join();
+    th2.join();
+    double res3 = func3(res1, res2); 
+}
+clock_t end = clock(); // time of end in flops
+double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+cout<< seconds<<"s., N="<<n<<"\t"<<"без задержки"<<endl;
+
+n = 1000;
+start = clock();
+for(int i; i < n; i++)
+{
+    double res1;
+    double res2;
+    thread th1([&res1, &x]()
+    {
+        res1 = func1(x);
+        this_thread::sleep_for(chrono::milliseconds(10));
+    });
+    thread th2([&res2, &x]()
+    {
+        res2 = func2(x);
+        this_thread::sleep_for(chrono::milliseconds(10));
+    });
+    th1.join();
+    th2.join();
+    double res3 = func3(res1, res2); 
+}
+end = clock(); // time of end in flops
+seconds = (double)(end - start) / CLOCKS_PER_SEC;
+cout<< seconds<<"s., N="<<n<<"\t"<<"с задержкой:0.01s."<<endl;
+
+return 0;
+}
+```
+
 ## Вывод
 
 Результаты без задержки:
