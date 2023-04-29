@@ -13,7 +13,7 @@ using namespace std;
 int main()
 {
 double x = 1;
-int n = 10000;
+int n = 100000;
 double res1[n];
 double res2[n];
 std::mutex m;
