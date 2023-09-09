@@ -105,7 +105,7 @@ void merge(vector<int>& arr, int left, int middle, int right) {
 }
 ```
 
-### Быстрая сортировка (merge sort)
+### Быстрая сортировка (q sort)
 
 #### 2.1 Пример задачи
 
