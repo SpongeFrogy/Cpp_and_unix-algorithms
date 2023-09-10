@@ -9,41 +9,41 @@
 
 - сортировка пузырьком
 
-![bubble](bubble.gif)
+![bubble](lab1_gif/bubble.gif)
 
 - сортировка выбором,
 
-![ch](ch.gif)
+![ch](lab1_gif/ch.gif)
 
 - сортировка вставкой,
 
-![add](add.gif)
+![add](lab1_gif/add.gif)
 
 - сортировка подсчетом,
 
-![count](count.gif)
+![count](lab1_gif/count.gif)
 
 - цифровая сортировка (LSD, MSD) ,
 
-![Radix](Radix.gif)
+![Radix](lab1_gif/Radix.gif)
 
 - сортировка слиянием,
 
-![merge](merge.gif)
+![merge](lab1_gif/merge.gif)
 
 - шейкерная сортировка (сортировка перемешиванием),
 
-![sh](sh.gif)
+![sh](lab1_gif/sh.gif)
 
 - быстрая сортировка (сортировка Хоара),
 
-![q](q.gif)
+![q](lab1_gif/q.gif)
 
 - сортировка кучей (пирамидальная сортировка).
 
-![heap](heap.gif)
+![heap](lab1_gif/heap.gif)
 
-![st](heap_st.gif)
+![st](lab1_gif/heap_st.gif)
 
 ## Решение
 
@@ -176,5 +176,8 @@ void quickSort(vector<int>& arr, int low, int high) {
 - Неустойчив к повторяющимся элементам
 - Требует дополнительной памяти для хранения стека вызовов, что может привести к проблемам с памятью при обработке больших массивов данных.
 
-
 [сложности алгоритмов](https://neerc.ifmo.ru/wiki/index.php?title=%D0%A1%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B8)
+
+## Вопрос: Пример быстрой сортировки
+
+![Alt text](lab1_gif/image.png)
