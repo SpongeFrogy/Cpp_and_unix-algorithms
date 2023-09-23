@@ -1,0 +1,86 @@
+# ЛР #2: Структуры данных и динамическое программирование
+
+## Цель
+
+Познакомить студента с основами структур данных и методикам динамического
+программирования.
+
+## Задача
+
+Поиск оптимального (кратчайшего, быстрейшего или самого дешевого) пути,
+проходящего через промежуточный пункты по одному разу и возвращающегося в
+исходную точку. К примеру, нахождение наиболее выгодного маршрута, позволяющего
+коммивояжеру посетить со своим товаром определенные города по одному разу и
+вернуться обратно. Мерой выгодности маршрута может быть минимальная длина
+пути.
+Задать перечень точек с координатами X и Y. Пример:
+
+- Точка 1, X1, Y1
+
+- Точка 2, X2, Y2
+
+- Точка 3, X3, Y3
+
+- Точка ...
+
+В качестве отправной и конечной точки брать первую введенную точку.
+
+### 1
+
+Спроектировать оптимальную структуру для решения задачи с точки зрения
+затрат памяти. Реализовать на языке C++ или Python.
+
+```python
+def random_points(n: int, m=10) -> list[list[float]]:
+   points = [[0., 0.]]*n
+   for i in range(n):
+      for j in range(2):
+         points[i][j] = random.random() * m
+   return points
+
+def make_distance_matrix(points: list[list[float]]) -> list[list[float]]:
+   matrix = [[0.]*len(points)]*len(points)
+   for i in range(len(points)):
+      for j in range(len(points)):
+         matrix[i][j] = ((points[i][0] - points[j][0])**2 + (points[i][1] - points[j][1])**2)**0.5
+         print(points[i][0])
+   return matrix
+```
+
+### 2
+
+Спроектировать оптимальный алгоритм решения задачи с использованием
+технологий динамического программирования. Оценить выислительные и
+емкостные затраты. Реализовать на языке C++ или Python.
+
+```python
+def tsp_recursive(graph, visited, current_city, start_city, num_cities):
+   if visited == (1 << num_cities) - 1:
+      # If all cities are visited, return to the start city
+      return graph[current_city][start_city], [current_city, start_city]
+    
+   min_tour_cost = sys.maxsize
+   min_path = []
+
+   for next_city in range(num_cities):
+      if not visited & (1 << next_city):
+         visited |= 1 << next_city
+         tour_cost, path = tsp_recursive(graph, visited, next_city, start_city, num_cities)
+         tour_cost += graph[current_city][next_city]
+            
+         if tour_cost < min_tour_cost:
+            min_tour_cost = tour_cost
+            min_path = [current_city] + path
+            
+         visited &= ~(1 << next_city)
+    
+   return min_tour_cost, min_path
+
+def tsp(graph: list[list[float]]) -> tuple[float, list[int]]:
+   num_cities = len(graph)
+   start_city = 0
+   visited = 1 << start_city
+   min_tour_cost, min_path = tsp_recursive(graph, visited, start_city, start_city, num_cities)
+    
+   return min_tour_cost, min_path
+```
