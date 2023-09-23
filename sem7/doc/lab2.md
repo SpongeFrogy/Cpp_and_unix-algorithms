@@ -31,20 +31,32 @@
 затрат памяти. Реализовать на языке C++ или Python.
 
 ```python
-def random_points(n: int, m=10) -> list[list[float]]:
-   points = [[0., 0.]]*n
-   for i in range(n):
-      for j in range(2):
-         points[i][j] = random.random() * m
-   return points
+class TriangularMatrix:
+   def __init__(self, size: int) -> None:
+      self.size = size
+      self.matrix = [0.] * (size * (size + 1) // 2)
 
-def make_distance_matrix(points: list[list[float]]) -> list[list[float]]:
-   matrix = [[0.]*len(points)]*len(points)
-   for i in range(len(points)):
-      for j in range(len(points)):
-         matrix[i][j] = ((points[i][0] - points[j][0])**2 + (points[i][1] - points[j][1])**2)**0.5
-         print(points[i][0])
-   return matrix
+   def __setitem__(self, key: tuple[int, int], value) -> None:
+      i, j = max(key), min(key)
+      index = (i * (i + 1) // 2) + j
+      self.matrix[index] = value
+   
+   def __getitem__(self, key: tuple[int, int]) -> None:
+      i, j = max(key), min(key)
+      index = (i * (i + 1) // 2) + j
+      return self.matrix[index]
+   
+   def __str__(self) -> str:
+      s = ""
+      for i in range(self.size):
+         for j in range(i):
+            s+= str(self.__getitem__((i, j))) + ", "
+         s+= str(self.__getitem__((i, i)))
+         s += "\n"
+      return s
+   
+   def __len__(self):
+      return self.size
 ```
 
 ### 2
