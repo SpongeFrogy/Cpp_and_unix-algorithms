@@ -48,11 +48,10 @@ class TriangularMatrix:
    
    def __str__(self) -> str:
       s = ""
-      for i in range(self.size):
-         for j in range(i):
-            s+= str(self.__getitem__((i, j))) + ", "
-         s+= str(self.__getitem__((i, i)))
-         s += "\n"
+      j = 0
+      for i in range(1, self.size + 1):
+         s+= (self.matrix[j:i+j].__str__()) + "\n"
+         j += i
       return s
    
    def __len__(self):

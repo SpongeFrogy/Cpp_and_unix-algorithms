@@ -2,6 +2,8 @@ import sys
 import random
 import numpy as np
 
+
+
 class TriangularMatrix:
    def __init__(self, size: int) -> None:
       self.size = size
@@ -17,16 +19,24 @@ class TriangularMatrix:
       index = (i * (i + 1) // 2) + j
       return self.matrix[index]
    
+   # def __str__(self) -> str:
+   #    s = ""
+   #    for i in range(self.size):
+   #       for j in range(i):
+   #          s+= str(self.__getitem__((i, j))) + ", "
+   #       s+= str(self.__getitem__((i, i)))
+   #       s += "\n"
+   #    return s
+   
    def __str__(self) -> str:
       s = ""
-      for i in range(self.size):
-         for j in range(i):
-            s+= str(self.__getitem__((i, j))) + ", "
-         s+= str(self.__getitem__((i, i)))
-         s += "\n"
+      j = 0
+      for i in range(1, self.size + 1):
+         s+= (self.matrix[j:i+j].__str__()) + "\n"
+         j += i
       return s
-   
-   def __len__(self):
+
+   def __len__(self) -> int:
       return self.size
 
 
