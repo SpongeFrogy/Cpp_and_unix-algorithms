@@ -51,7 +51,7 @@ def make_distance_matrix(points: np.ndarray) -> list[list[float]]:
    return matrix
 
 def tsp_recursive(graph, visited, current_city, start_city, num_cities):
-   if visited == (1 << num_cities) - 1:
+   if visited == (1 << num_cities) - 1: # !  here
       # If all cities are visited, return to the start city
       return graph[current_city, start_city], [current_city, start_city]
     
@@ -59,8 +59,8 @@ def tsp_recursive(graph, visited, current_city, start_city, num_cities):
    min_path = []
 
    for next_city in range(num_cities):
-      if not visited & (1 << next_city):
-         visited |= 1 << next_city
+      if not visited & (1 << next_city):  # !  here
+         visited |= 1 << next_city  # !  here
          tour_cost, path = tsp_recursive(graph, visited, next_city, start_city, num_cities)
          tour_cost += graph[current_city, next_city]
             
@@ -68,7 +68,7 @@ def tsp_recursive(graph, visited, current_city, start_city, num_cities):
             min_tour_cost = tour_cost
             min_path = [current_city] + path
             
-         visited &= ~(1 << next_city)
+         visited &= ~(1 << next_city)  # !  here
     
    return min_tour_cost, min_path
 
