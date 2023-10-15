@@ -1,7 +1,7 @@
 import sys
 import random
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 
 class TriangularMatrix:
@@ -98,5 +98,7 @@ g_2 = make_distance_matrix(points)
 
 print(g)
 
-min_tour_cost = tsp(g)
+min_tour_cost = tsp(g_2)
 print("Minimum TSP Tour Cost:", min_tour_cost)
+plt.scatter(points[:, 0], points[:, 1])
+plt.show()

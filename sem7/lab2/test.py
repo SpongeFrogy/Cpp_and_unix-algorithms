@@ -1,6 +1,7 @@
 from timeit import timeit
 
-# * https://proglib.io/p/slozhnost-algoritmov-i-operaciy-na-primere-python-2020-11-03
+# url https://proglib.io/p/slozhnost-algoritmov-i-operaciy-na-primere-python-2020-11-03
+
 
 a = list(range(1000))
 
@@ -17,7 +18,7 @@ print(f"time with item by item: {t1:.2f} s. for {n} iterations \ntime with slice
 
 
 # ! binary operators
-# * https://www.bestprog.net/ru/2019/10/21/python-bitwise-operators-ru/
+# url https://www.bestprog.net/ru/2019/10/21/python-bitwise-operators-ru/
 
 i = 123
 
