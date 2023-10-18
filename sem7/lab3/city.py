@@ -7,16 +7,18 @@ import numpy as np
 
 
 class Road:
-    def __init__(self, c0: CrossRoad, c1: CrossRoad, name: str, s0={}, s1={}):
+    def __init__(self, c0: CrossRoad, c1: CrossRoad, name: str, v, s0={}, s1={}):
         self.c0 = c0
         self.c1 = c1
         self.signal0 = Signal(c0, self, **s0)
         self.signal1 = Signal(c1, self, **s1)
         c0.add_road(self, self.signal0)
         c1.add_road(self, self.signal1)
+
         self.name = name
 
         self.length = distance.euclidean(c0.pos, c1.pos)
+        self.v = self.length / 10
         self.sin = (c1.pos[0] - c0.pos[0]) / self.length
         self.cos = (c1.pos[1] - c0.pos[1]) / self.length
 
@@ -110,7 +112,7 @@ class Car:
         self.road = road
         self.v = v
         self._v = v
-
+        self.possibility = 1
         self.pos = pos
         self.going = True
         self.direction = direction
@@ -139,23 +141,27 @@ class Car:
                 if c is road.c0:
                     if True:  # not
                         r.append(i)
-                        w.append(road.length)
+                        w.append(1/road.length)
                 if c is road.c1:
                     if True:  # not road.signal1
                         r.append(i)
-                        w.append(road.length)
+                        w.append(1/road.length)
 
         i = random.choices(r, weights=w)[0]
+
         self.road = list(c.roads.keys())[i]
+
+        self.possibility = self.road.length / sum(w)
+
         if c is self.road.c0:
             self.pos = 0
-            self.v = abs(self.v)
-            self._v = self.v
+            self.v = abs(self.road.v)
+            #self._v = self.v
             self.direction = True
             self.road.cars_true.append(self)
         else:
             self.pos = self.road.length
-            self.v = -abs(self.v)
+            self.v = -abs(self.road.v)
             self._v = self.v
             self.direction = False
             self.road.cars_false.append(self)
@@ -226,21 +232,17 @@ class City:
         self.crossroads: list[CrossRoad] = []
         self.init_gens: list[InitCarGenerator] = []
         self.road_titles = []
+        self.road_v = []
         self.time = 0
-        self.abs_err = []
-        self.max_err = []
+
         self.sum_length = 0.
         self.sum_cars = 0
+        self.n_roads = 0
 
     def add_road(self, road: Road):
         self.roads.append(road)
         self.sum_length += 2*road.length
-        self.abs_err.append(-min(road.signal0.timing) +
-                            sum(road.signal0.timing)/2)
-        self.abs_err.append(-min(road.signal1.timing) +
-                            sum(road.signal1.timing)/2)
-        self.max_err.append(sum(road.signal0.timing)/2)
-        self.max_err.append(sum(road.signal1.timing)/2)
+        self.n_roads += 1
 
     def add_roads(self, list: list[Road]):
         for road in list:
@@ -274,13 +276,31 @@ class City:
         load_per_road = sorted([*[(r_t.name+" T", len(r_t.cars_true)) for r_t in self.roads],
                                 *[(r_f.name+" F", len(r_f.cars_false)) for r_f in self.roads]], key=lambda x: x[1], reverse=True)
         score = 0.
+        max_v = 0
         for r in self.roads:
+            mav_v = max(max_v, r.v)
             for car in r.cars_true:
                 score += car.s / self.time
             for car in r.cars_false:
                 score += car.s / self.time
-        score /= self.sum_cars * self.init_gens[0].v
+        score /= self.sum_cars * mav_v
         return load_per_road, score
+
+    # def update_score(self):
+    #     score = 0.
+    #     for r in self.roads:
+    #         score += max(len(r.cars_true) / self.sum_cars, score)
+    #         score = max(len(r.cars_true) / self.sum_cars, score)
+    #     return score
+
+    def update_score(self):
+        score = 0.
+        for r in self.roads:
+            for c in r.cars_true:
+                score += c.possibility * np.log(c.possibility)
+            for c in r.cars_false:
+                score += c.possibility * np.log(c.possibility)
+        return score           
 
     def loop(self, dt=0.1, t_max=1000):
         """
@@ -290,7 +310,7 @@ class City:
         self.time = 0
         self.generate()
         running = True
-        std = np.sum(np.abs(self.abs_err)) / np.sum(np.abs(self.max_err))
+
         score_list = []
 
         def condition(x): return self.time <= t_max
@@ -308,8 +328,9 @@ class City:
 
             self.time += dt
 
-            loaded, mean_v = self.update_mean_v()
-            score_list.append(mean_v)
+            loaded, score = self.update_mean_v()
+            # score = self.update_score()
+            score_list.append(score)
 
             running = condition(running)
         self.reset()
@@ -319,7 +340,6 @@ class City:
         self.time = 0
         self.generate()
         score_list = []
-        std = np.sum(np.abs(self.abs_err)) / np.sum(np.abs(self.max_err))
         pygame.init()
 
         FPS = 120
@@ -332,6 +352,10 @@ class City:
         for r in self.roads:
             self.road_titles.append(
                 self.road_font.render(r.name, False, (0, 0, 0)))
+        
+        for r in self.roads:
+            self.road_v.append(
+                self.road_font.render(f"{r.v:.2f}", False, (0, 0, 0)))
 
         screen = pygame.display.set_mode([800, 800], pygame.RESIZABLE)
         img = pygame.image.load("sem7/lab3/back.png")
@@ -365,8 +389,11 @@ class City:
                 screen.blit(t, (r.c0.pos[0] + (r.c1.pos[0] - r.c0.pos[0]) // 2 - self.road_font.size(
                     r.name)[0] // 2, r.c0.pos[1] + (r.c1.pos[1] - r.c0.pos[1]) // 2))
 
+            # for t, r in zip(self.road_v, self.roads):
+            #     screen.blit(t, (r.c0.pos[0] + (r.c1.pos[0] - r.c0.pos[0]) // 2, r.c0.pos[1] + (r.c1.pos[1] - r.c0.pos[1]) // 2))
+
             loaded, mean_v = self.update_mean_v()
-            score_list.append((mean_v + std)/2)
+            score_list.append(mean_v)
             text_score = self.score_font.render(
                 f'score={score_list[-1]:.5}', False, (0, 0, 0))
             screen.blit(text_score, (0, 0))
@@ -391,7 +418,6 @@ class City:
         self.generate()
         running = True
         score_list = []
-        std = np.sum(np.abs(self.abs_err)) / np.sum(np.abs(self.max_err))
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
         fig.show()
@@ -408,9 +434,9 @@ class City:
                 c.update_signal(self.time, dt)
 
             self.time += dt
-            loaded, mean_v = self.update_mean_v()
-            print(mean_v)
-            score_list.append((mean_v + std) / 2)
+            loaded, score = self.update_mean_v()
+            #score = self.update_score()
+            score_list.append(score)
             ax.clear()
 
             ax.plot(np.linspace(0*dt, len(score_list)*dt,

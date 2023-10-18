@@ -42,39 +42,40 @@ class Model:
               CrossRoad((481, 505))]   # 22
 
         signal_params = make_signal_params(cs, timings)
-        def _road(n0, n1, name, clr0: bool, clr1: bool):
-            return Road(cs[n0], cs[n1], name, s0=signal_params[n0][int(clr0)], s1=signal_params[n1][int(clr1)])
+
+        def _road(n0, n1, name, clr0: bool, clr1: bool, v):
+            return Road(cs[n0], cs[n1], name, s0=signal_params[n0][int(clr0)], s1=signal_params[n1][int(clr1)], v=v)
 
 
-        rs = [_road(0, 1, "Троицкий", True, False),
-              _road(1, 17, "Дворцовая", True, False),
-              _road(17, 16, "Дворцовая", True, False),
-              _road(16, 12, "К-ва 1", True, False),
-              _road(12, 2, "Кутузова 2", True, False),
-              _road(2, 3, "Литейный 1", True, False),
-              _road(3, 4, "Пироговская 1", True, False),
-              _road(4, 5, "Б Сам-ий", True, False),
-              _road(5, 6, "Финляндский", True, False),
-              _road(4, 6, "Пир-ая 2", True, False),
-              _road(6, 7, "Самп-кий", True, False),
-              _road(7, 8, "Петроградская 1", True, False),
-              _road(8, 0, "Петроградская 2", True, False),
-              _road(0, 9, "Каменноостровский", True, False),
-              _road(9, 7, "Куйбышевская", True, False),
-              _road(17, 18, "Лебяжьей к-и", True, False),
-              _road(18, 19, "Р. Мойки", True, False),
-              _road(19, 15, "Р. Фонтанки 1", True, False),
-              _road(15, 16, "Р. Фонтанки 2", True, False),
-              _road(15, 13, "Чайковского 1", True, False),
-              _road(13, 11, "Гагаринская 1", False, False),  # Гагаринская
-              _road(11, 12, "Гаг-ая 2", True, False),
-              _road(11, 10, "Шпалерная", True, False),
-              _road(10, 14, "Литейный 3", True, False),
-              _road(14, 21, "Литейный 4", True, False),
-              _road(21, 20, "Пестеля 1", True, False),
-              _road(20, 19, "Пестеля 2", True, False),
-              _road(13, 15, "Чайковского 2", True, False),
-              _road(2, 10, "Литейный 2", True, False)]
+        rs = [_road(0, 1, "Троицкий", True, False, 10),
+              _road(1, 17, "Дворцовая", True, False, 8),
+              _road(17, 16, "Дворцовая", True, False, 4),
+              _road(16, 12, "К-ва 1", True, False, 10),
+              _road(12, 2, "Кутузова 2", True, False, 14),
+              _road(2, 3, "Литейный 1", True, False, 5),
+              _road(3, 4, "Пироговская 1", True, False, 2),
+              _road(4, 5, "Б Сам-ий", True, False, 10),
+              _road(5, 6, "Финляндский", True, False, 10),
+              _road(4, 6, "Пир-ая 2", True, False, 10),
+              _road(6, 7, "Самп-кий", True, False, 10),
+              _road(7, 8, "Петроградская 1", True, False, 10),
+              _road(8, 0, "Петроградская 2", True, False, 10),
+              _road(0, 9, "Каменноостровский", True, False, 10),
+              _road(9, 7, "Куйбышевская", True, False, 10),
+              _road(17, 18, "Лебяжьей к-и", True, False, 30),
+              _road(18, 19, "Р. Мойки", True, False, 19),
+              _road(19, 15, "Р. Фонтанки 1", True, False, 10),
+              _road(15, 16, "Р. Фонтанки 2", True, False, 2),
+              _road(15, 13, "Чайковского 1", True, False, 1),
+              _road(13, 11, "Гагаринская 1", False, False, 6),  # Гагаринская
+              _road(11, 12, "Гаг-ая 2", True, False, 4),
+              _road(11, 10, "Шпалерная", True, False, 8),
+              _road(10, 14, "Литейный 3", True, False, 12),
+              _road(14, 21, "Литейный 4", True, False, 13),
+              _road(21, 20, "Пестеля 1", True, False, 10),
+              _road(20, 19, "Пестеля 2", True, False, 2),
+              _road(13, 15, "Чайковского 2", True, False, 15),
+              _road(2, 10, "Литейный 2", True, False, 1)]
 
         iGens = [InitCarGenerator(
             r, n_cars_true=int(r.length//10)) for r in rs]
@@ -139,6 +140,7 @@ class Model:
 
 
 if __name__ == "__main__":
-    best_params = [35.334781398620066, 34.65566840904645, 36.777312120028554, 38.02428589041652, 39.91484775626096, 45.62723977140812, 24.62914654488359, 43.46211666953861, 23.550754379111634, 23.509832638649478,  37.3498126681518,  40.234231452719584,  41.3880437002321,  32.520092238043866,  40.46409322551679,  23.080566588266144,  29.46636031678918,  39.412482469126175,  40.39439974555297,  44.41406794916072,  25.025802268078493,  35.064535958728335]
-    model = Model([[p, 50-p] for p in best_params])
-    model.city.loop_plot()
+    best_params =  [ 7.675447134961057, 5.306722725032909, 9.672194056398018, 2.5424687666404533, 6.577404240604412, 7.588633806966979, 5.366467594598852, 4.694434096702121, 4.7776705306988365, 9.223291973657577,  7.1672629236121725,  8.402297655683864,  9.625685966321265,  5.468455928177309,  7.303268611787422,  4.549349878092204,  5.871253374241523,  3.6352711162557982,  5.348859810474501,  6.043749826463642,  5.7698757754962315,  7.336785235353177]
+
+    model = Model([[p, 10-p] for p in best_params])
+    model.city.loop_draw()
