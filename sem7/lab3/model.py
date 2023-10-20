@@ -93,27 +93,6 @@ class Model:
         city = deepcopy(self.city)
         return city.loop(t_max=t_max)
 
-    # def _simulate_and_save(self, dt, t_max, result, index):
-    #     city = deepcopy(self.city)
-    #     result[index] = city.loop(dt, t_max)
-    #     return result
-
-    # def simulate(self, dt=0.1, t_max=1000, n_eval=5):
-    #     result = [None] * n_eval
-
-    #     with ThreadPoolExecutor(max_workers=n_eval) as executor:
-    #         futures = []
-    #         for i in range(n_eval):
-    #             futures.append(executor.submit(
-    #                 self._simulate_and_save, dt, t_max, result, i))
-
-    #         for future in futures:
-    #             # Wait for the task to complete and populate the results.
-    #             # Replace _ with actual variable if you want to capture return values
-    #             _ = future.result()
-
-    #     return result
-
     def _simulate_and_save(self, dt, t_max, result, index):
         city = deepcopy(self.city)
         output = city.loop(dt, t_max)

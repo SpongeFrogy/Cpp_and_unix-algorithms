@@ -278,12 +278,12 @@ class City:
         score = 0.
         max_v = 0
         for r in self.roads:
-            mav_v = max(max_v, r.v)
+            max_v = max(max_v, r.v)
             for car in r.cars_true:
                 score += car.s / self.time
             for car in r.cars_false:
                 score += car.s / self.time
-        score /= self.sum_cars * mav_v
+        score /= self.sum_cars * max_v
         return load_per_road, score
 
     # def update_score(self):
