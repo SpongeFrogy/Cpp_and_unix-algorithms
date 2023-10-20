@@ -35,21 +35,6 @@ class Road:
         pygame.draw.line(screen, "#FEDA97", self.c0.pos, self.c1.pos, 2)
 
 
-def extract_with_probabilities(lst, probabilities):
-    if len(lst) == 0 or len(probabilities) != len(lst):
-        return None
-
-    # Нормализуем вероятности, чтобы их сумма была равна 1
-    probabilities_sum = sum(probabilities)
-    normalized_probabilities = [p / probabilities_sum for p in probabilities]
-
-    # Случайным образом выбираем элемент на основе вероятностей
-    selected_index = random.choices(
-        range(len(lst)), weights=normalized_probabilities)[0]
-    selected_element = lst[selected_index]
-    return selected_element
-
-
 class CrossRoad:
     def __init__(self, pos: tuple[int, int]):
         self.roads: dict[Road, Signal] = {}
@@ -59,13 +44,14 @@ class CrossRoad:
         self.roads[road] = signal
         return road
 
-    def update_signal(self, t, dt):
+    def update_signal(self, dt):
         for sig in self.roads.values():
             sig.update(dt)
 
     def draw(self, screen):
         pygame.draw.circle(screen, (123, 123, 123), self.pos, 5)
         for road in self.roads.keys():
+            # draw Signals
             if self is road.c0:
                 pygame.draw.circle(screen, self.roads[road]._color, (
                     self.pos[0] + road.sin * 7, self.pos[1] + road.cos * 7), 4)
@@ -84,8 +70,8 @@ class Signal:
 
     def update(self, dt: int) -> bool:
         self.time += dt
-        cycle_time = self.time % sum(self.timing)
-        if cycle_time < self.timing[0]:
+        circle_time = self.time % sum(self.timing)
+        if circle_time < self.timing[0]:
             self.can_go = True
         else:
             self.can_go = False
@@ -104,14 +90,12 @@ class Signal:
         pygame.draw.circle(screen, self._color, (x, y), 3)
 
 
-X0 = 5
-
-
 class Car:
+    X0 = 5
+
     def __init__(self, road: Road, v: int, pos: float | int, direction: bool = True):
         self.road = road
         self.v = v
-        self._v = v
         self.possibility = 1
         self.pos = pos
         self.going = True
@@ -127,7 +111,6 @@ class Car:
 
     def change_road(self):
         c = self.road.c1 if self.direction else self.road.c0
-        # print(car in car.road.cars_true)
         if self in self.road.cars_true:
             self.road.cars_true.remove(self)
         if self in self.road.cars_false:
@@ -156,22 +139,19 @@ class Car:
         if c is self.road.c0:
             self.pos = 0
             self.v = abs(self.road.v)
-            #self._v = self.v
             self.direction = True
             self.road.cars_true.append(self)
         else:
             self.pos = self.road.length
             self.v = -abs(self.road.v)
-            self._v = self.v
             self.direction = False
             self.road.cars_false.append(self)
 
     def update(self, dt):
-        # print(self.road.text, self.pos, self.road.length, self.v, self.direction)
         dir_road = self.road.cars_true if self.direction else self.road.cars_false
         if self is not dir_road[0]:
             index = dir_road.index(self)
-            if not dir_road[index - 1].going and (abs(self.pos - dir_road[index - 1].pos) - X0) <= 0:
+            if not dir_road[index - 1].going and (abs(self.pos - dir_road[index - 1].pos) - self.X0) <= 0:
                 self.going = False
             else:
                 self.going = True
@@ -272,9 +252,12 @@ class City:
             r.cars_false = []
         self.time = 0
 
-    def update_mean_v(self):
+    def update_load_road(self):
         load_per_road = sorted([*[(r_t.name+" T", len(r_t.cars_true)) for r_t in self.roads],
                                 *[(r_f.name+" F", len(r_f.cars_false)) for r_f in self.roads]], key=lambda x: x[1], reverse=True)
+        return load_per_road
+
+    def update_mean_v(self):
         score = 0.
         max_v = 0
         for r in self.roads:
@@ -284,27 +267,23 @@ class City:
             for car in r.cars_false:
                 score += car.s / self.time
         score /= self.sum_cars * max_v
-        return load_per_road, score
+        return score
 
-    # def update_score(self):
-    #     score = 0.
-    #     for r in self.roads:
-    #         score += max(len(r.cars_true) / self.sum_cars, score)
-    #         score = max(len(r.cars_true) / self.sum_cars, score)
-    #     return score
-
-    def update_score(self):
+    def update_entropy(self):
         score = 0.
         for r in self.roads:
             for c in r.cars_true:
                 score += c.possibility * np.log(c.possibility)
             for c in r.cars_false:
                 score += c.possibility * np.log(c.possibility)
-        return score           
+        return score
 
     def loop(self, dt=0.1, t_max=1000):
         """
-        return time, score : list[float], list[float]
+        return:
+            time: list[float]
+            mean_v: list[float]
+            entropy: list[float]
         """
         running = True
         self.time = 0
@@ -312,34 +291,32 @@ class City:
         running = True
 
         score_list = []
+        entropy_list = []
 
         def condition(x): return self.time <= t_max
         while running:
-            # Did the user click the window close button?
             running = condition(running)
-
             for r in self.roads:
                 for car in r.cars_true:
                     car.update(dt)
                 for car in r.cars_false:
                     car.update(dt)
             for c in self.crossroads:
-                c.update_signal(self.time, dt)
+                c.update_signal(dt)
 
             self.time += dt
-
-            loaded, score = self.update_mean_v()
-            # score = self.update_score()
-            score_list.append(score)
+            score_list.append(self.update_mean_v())
+            entropy_list.append(self.update_entropy())
 
             running = condition(running)
         self.reset()
-        return [i*dt for i in range(len(score_list))], score_list
+        return [i*dt for i in range(len(score_list))], score_list, entropy_list
 
     def loop_draw(self, score_font_params=(None, 24), road_font_params=(None, 13), dt=0.1, condition=lambda x: True):
         self.time = 0
         self.generate()
         score_list = []
+        entropy_list = []
         pygame.init()
 
         FPS = 120
@@ -352,7 +329,7 @@ class City:
         for r in self.roads:
             self.road_titles.append(
                 self.road_font.render(r.name, False, (0, 0, 0)))
-        
+
         for r in self.roads:
             self.road_v.append(
                 self.road_font.render(f"{r.v:.2f}", False, (0, 0, 0)))
@@ -380,7 +357,7 @@ class City:
                     car.draw(screen)
 
             for c in self.crossroads:
-                c.update_signal(self.time, dt)
+                c.update_signal(dt)
                 c.draw(screen)
 
             self.time += dt
@@ -392,14 +369,22 @@ class City:
             # for t, r in zip(self.road_v, self.roads):
             #     screen.blit(t, (r.c0.pos[0] + (r.c1.pos[0] - r.c0.pos[0]) // 2, r.c0.pos[1] + (r.c1.pos[1] - r.c0.pos[1]) // 2))
 
-            loaded, mean_v = self.update_mean_v()
-            score_list.append(mean_v)
-            text_score = self.score_font.render(
-                f'score={score_list[-1]:.5}', False, (0, 0, 0))
-            screen.blit(text_score, (0, 0))
+            loaded = self.update_load_road()
+            mean_v = self.update_mean_v()
+            entropy = self.update_entropy()
+
             text_time = self.score_font.render(
-                f'time= {self.time:.1f}', False, (0, 0, 0))
-            screen.blit(text_time, (0, 24))
+                f'time   = {self.time:.1f} inner s', False, (0, 0, 0))
+            screen.blit(text_time, (0, 0))
+
+            text_score = self.score_font.render(
+                f'mean v = {mean_v:.5}', False, (0, 0, 0))
+            screen.blit(text_score, (0, score_font_params[1]))
+
+            text_score = self.score_font.render(
+                f'entropy = {entropy:.5}', False, (0, 0, 0))
+            screen.blit(text_score, (0, score_font_params[1]*2))
+
             for i in range(5):
                 text = self.score_font.render(
                     f'{i+1}. {loaded[i][0]}: {loaded[i][1]}', False, (0, 0, 0))
@@ -408,7 +393,6 @@ class City:
             pygame.display.flip()
             clock.tick(FPS)
 
-        # plt.show()
         pygame.quit()
         self.reset()
 
@@ -419,7 +403,7 @@ class City:
         running = True
         score_list = []
         fig = plt.figure()
-        ax = fig.add_subplot(1, 1, 1)
+        ax1 = fig.add_subplot(1, 1, 1)
         fig.show()
         while running:
             # Did the user click the window close button?
@@ -431,18 +415,18 @@ class City:
                 for car in r.cars_false:
                     car.update(dt)
             for c in self.crossroads:
-                c.update_signal(self.time, dt)
+                c.update_signal(dt)
 
             self.time += dt
-            loaded, score = self.update_mean_v()
-            #score = self.update_score()
+            score = self.update_mean_v()
             score_list.append(score)
-            ax.clear()
+            time = np.linspace(0*dt, len(score_list)*dt, (len(score_list)-0))
+            ax1.clear()
 
-            ax.plot(np.linspace(0*dt, len(score_list)*dt,
-                    (len(score_list)-0)), score_list, color='r')
-
-            ax.set_title(f"time = {self.time:.1f}, score={score_list[-1]:.3f}")
+            ax1.plot(time, score_list, color='r')
+            ax1.set_xlabel("inner time")
+            ax1.set_ylabel("mean v")
+            ax1.set_title(f"time = {self.time:.1f}, mean v = {score:.3f}")
             fig.canvas.draw()
             fig.canvas.flush_events()
 
