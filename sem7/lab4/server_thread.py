@@ -9,6 +9,8 @@ from server import Server
 class ServerTread_cv(Server):
     def __init__(self) -> None:
         super().__init__()
+        self.load = 0
+        self.cv = threading.Condition()
 
     def wait_for_load(self, request_load: int):
         if self.load + request_load > 100:
@@ -58,5 +60,5 @@ class ServerTread(Server):
 
 
 if __name__ == '__main__':
-    server = ServerTread()
+    server = ServerTread_cv()
     server.run_server()

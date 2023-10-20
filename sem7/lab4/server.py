@@ -31,8 +31,6 @@ class Server(ABC):
 
     def __init__(self) -> None:
         super(ABC).__init__()
-        self.load = 0
-        self.cv = threading.Condition()
 
     @abstractclassmethod
     def run_server(self):
