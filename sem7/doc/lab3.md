@@ -262,6 +262,25 @@ TPE был представлен в работах Bergstra, Yamins и Cox, в 
 
 Подробнее можно прочитать [сдесь](https://academy.yandex.ru/handbook/ml/article/podbor-giperparametrov)
 
+### Результаты оптимизации
+
+Параметры оптимизации:
+
+```python
+new = trial.suggest_float(f"p{i}", 0, 10)
+params[i] = (new, 10-new)
+```
+
+![img](/sem7/lab3/trials.png)
+
+![img](/sem7/lab3/importance.png)
+
+Результаты моделирования, если все параметры равны `5`
+![img](/sem7/lab3/review_all_green.png)
+
+Результаты моделирования после оптимизации:
+![img](/sem7/lab3/review_opt.png)
+
 ### Для задач 1 и 2 рассчитать и обосновать оценку вычислительной и ёмкостной сложности
 
 - Оценка сложности (Computational Complexity):
