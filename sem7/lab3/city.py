@@ -134,7 +134,7 @@ class Car:
 
         self.road = list(c.roads.keys())[i]
 
-        self.possibility = self.road.length / sum(w)
+        self.possibility = self.road.length * sum(w)
 
         if c is self.road.c0:
             self.pos = 0
