@@ -1,0 +1,31 @@
+# Список лабораторных
+
+- C++ и Unix системы:
+  - Linux
+    - [doc](doc/lab_1.md)
+    - [dir](lab1)
+  - C++ vs Python
+    - [doc](doc/lab_2.md)
+    - [dir](lab2)
+  - CLI calculator and Hanoi tower
+    - [doc](doc/lab_3.md)
+    - [dir](lab3)
+  - Parallel C++ threads/precesses
+    - [doc](doc/lab_4.md)
+    - [dir](lab4)
+  - programming language on C++
+    - [doc](doc/lab_5.md)
+    - [dir](lab5)
+- Algorithms
+  - Sort algorithms
+    - [doc](sem7/doc/lab1.md)
+    - [dir](sem7/lab1)
+  - TSP
+    - [doc](sem7/doc/lab2.md)
+    - [dir](sem7/lab2)
+  - Traffic flow model
+    - [doc](sem7/doc/lab3.md)
+    - [dir](sem7/lab3)
+  - Parallel/async server
+    - [doc](sem7/doc/lab4.md)
+    - [dir](sem7/lab4)

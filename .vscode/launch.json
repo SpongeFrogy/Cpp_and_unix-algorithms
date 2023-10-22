@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/droid/Projects/Cpp_and_unix-algorithms/lab4",
-      "program": "c:/Users/droid/Projects/Cpp_and_unix-algorithms/lab4/build/Debug/outDebug",
+      "cwd": "c:/Users/droid/Projects/Cpp_and_unix-algorithms/lab4/processes",
+      "program": "c:/Users/droid/Projects/Cpp_and_unix-algorithms/lab4/processes/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
